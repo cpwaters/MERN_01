@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title>React single form</title>
+        <link rel="stylesheet" href="./assets/styles.css">
+    </head>
+<body>
+    <h1 class="title">ReactJS => API => NodeJS => MongoDB</h1>
+    <div id="homepage">
+        <h2>Simple form to POST, PUT, UPDATE &amp; DELETE to a database (C.R.U.D)</h2>
+        <div id="results"></div>
+    </div>
+
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>﻿
+    
+
+    <!-- react component-->
+
+    <script type="text/babel">
+    
+    var People = React.createClass({
+        getInitialState: function(){
+            return({
+                peeps: []
+            });
+        },
+        render: function(){
+            var peeps = this.state.peeps;
+            peeps = peeps.map(function(peep, index){
+                return(
+                    <li key={index}>
+                        <span className="firstName">{peep.obj.firstName}</span>
+                        <span className="surname">{peep.obj.surname}</span>
+                        <span className="age">{peep.obj.age}</span>
+                    </li>    
+                );
+            });
+            return(
+                <div>
+                    <form id="details" onSubmit={this.handleSubmit}>
+                        <label>Enter Details to add to db</label><br />
+                        <label>First Name</label><br />
+                        <input type="text" ref="fn" name="firstName" /><br />
+                        <label>Surname </label><br />
+                        <input type="text" ref="sn" name="surname" /><br />
+                        <label>Age</label><br />
+                        <input type="text" ref="age" name="age" /><br /><br />
+                        <button type="submit">SUBMIT</button>
+                        <ul>{peeps}</ul>
+                    </form> 
+                    
+                </div>
+            );
+            },  
+        handleSubmit: function(e){
+            e.preventDefault();
+            var firstName = this.refs.fn.value;
+            var surname = this.refs.sn.value;
+            var age = this.refs.age.value;
+
+            fetch('/?firstName=' + firstName + '&surname=' + surname + '&age=' + age).then(function(data){    
+                return data.json()
+            }).then(json => {
+                this.setState({
+                    peeps:json
+                });
+                
+            });
+        },
+        
+    });
+    ReactDOM.render(<People />, document.getElementById('results'));
+
+</script>
+</body>
+</html>

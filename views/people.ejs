@@ -1,0 +1,38 @@
+<!DOCTYPE>  
+<html>
+<head>
+<title>EJS - MongoDB</title>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+    <div id="people-table">
+
+<img src="./assets/ejsLogo.jpg" alt="ejs logo" width="200px">
+
+    <h1>EJS form</h1>
+    <h3>People</h3>
+    <form method=POST action="/people">
+        <label>First Name</label><br>
+        <input type="text" value="" name="firstName"><br>
+        <label>Surname </label><br>
+        <input type="text" value="" name="surname"><br>
+        <label>Age</label><br>
+        <input type="text" value="" name="age"><br><br>
+        <button type="submit">SUBMIT</button>
+        <button id="delete" type="delete">DELETE</button>
+    </form>
+
+    <ul>
+      <% for(var i=0; i < people.length ; i++){ %>
+        <li><%= people[i].firstName %></li>
+        <li><%= people[i].surname %></li>
+        <li><%= people[i].age %></li>
+      <% } %>
+    </ul>
+
+</div>
+</body>
+</html>
