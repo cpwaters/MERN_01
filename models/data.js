@@ -3,11 +3,11 @@ const Schema = mongoose.Schema; // Requiring the Scema method from mongoose
 
 //Create Schema and model
 const PersonSchema = new Schema({ //This is the layout of what information the model will be looking for when information is passed to it.
-    chap: {
+   
         firstName:String,
         surname:String,
         age:Number
-    }
+    
 });
 
 // Create a model

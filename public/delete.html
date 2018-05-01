@@ -45,18 +45,19 @@
             var peeps = this.state.peeps;
             peeps = peeps.map(function(peeps, index){
                 return(
-                    <li id="output" key={index}>
-                        <span className="id">Customer ID: {peeps._id} </span><br />
-                        <span className="firstName">First Name: {peeps.firstName} </span><br />
-                        <span className="surname">Surname: {peeps.surname} </span><br />
-                        <span className="age">Age: {peeps.age} </span><br />
+                    <li key={index}>
+                        <span className="firstName">{peeps.firstName}</span>
+                        <span className="surname">{peeps.surname}</span>
+                        <span className="age">{peeps.age}</span>
                     </li>    
                 );
             });
             return(
                 <div>
                     <form id="details" onSubmit={this.handleSubmit}>
-                        <h2>You are on the READ step</h2><br />
+                        <h2>You are on the DELETE step</h2><br />
+                        <label>Customer ID</label><br />
+                        <input type="text" ref="cid" name="_id" /><br />
                         <label>First Name</label><br />
                         <input type="text" ref="fn" name="firstName" required/><br />
                         <label>Surname </label><br />
@@ -72,19 +73,24 @@
             },  
         handleSubmit: function(e){
             e.preventDefault();
+            var cid = this.refs.cid.value;
             var firstName = this.refs.fn.value;
             var surname = this.refs.sn.value;
             var age = this.refs.age.value;
 
-            fetch('./get?firstName=' + firstName + '&surname=' + surname  + '&age=' + age).then(function(peeps){    
-                return peeps.json()
-            }).then(json => {
-                this.setState({
-                    peeps:json
-                });
-                
-            });
-        },
+                fetch('./delete/' + cid, {
+                        method: 'DELETE',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                            body: JSON.stringify({
+                                firstName:this.refs.fn.value,
+                                surname:this.refs.sn.value,
+                                age:this.refs.age.value
+                            })
+                            })
+                        },
         
     });
     ReactDOM.render(<People />, document.getElementById('results'));

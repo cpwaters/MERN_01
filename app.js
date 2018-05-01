@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 //app.use(routes);
 
 //setting the view engine
-app.set('view engine', 'ejs');
+//app.set('view engine', 'ejs');
 
 //fire controllers
 //peopleController(app);
@@ -42,32 +42,33 @@ var urlencodedParser = bodyParser.urlencoded({extended: false});
 mongoose.Promise = global.Promise;
 
 //handlers
-app.get('/', urlencodedParser, function(req,res,next){
+app.get('/get', urlencodedParser, function(req,res,next){
     //res.sendFile(__dirname + '/index.html');
-    Person.find({chap:[req.query.firstName,req.query.surname,parseFloat(req.query.age)]}).then(function(peeps){
+    Person.find(req.query).then(function(peeps){
         res.send(peeps);
     }).catch();
 });
 
 //add a new person to the db
-app.post('/post', urlencodedParser, function(req,res,next){
-    Person.create(req.body).then(function(people){
-        res.send(people);   
+app.post('/post', function(req,res,next){
+    Person.create(req.body).then(function(peeps){
+        res.send(peeps); 
+        console.log(peeps);  
     }).catch();
 });
 
 //update a person in the db
 app.put('/update/:id', urlencodedParser, function(req,res,next){
 Person.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
-    Person.findOne({_id: req.params.id}).then(function(people){
-        res.send(people);
+    Person.findOne({_id: req.params.id}).then(function(peeps){
+        res.send(peeps);
     }).catch();
+    })
 });
-}); 
 
 //Delete a person from the db
 app.delete('/delete/:id', function(req,res,next){
-Person.findByIdAndRemove({_id: req.params.id}).then(function(people){
-    res.send(people);
+Person.findByIdAndRemove({_id: req.params.id}).then(function(peeps){
+    res.send(peeps);
 }).catch();
 });
