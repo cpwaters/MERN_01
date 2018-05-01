@@ -2,16 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Person = require('./models/data');
-//const routes = require('./controllers/peopleController');
-var MongoClient = require('mongodb').MongoClient;
-
 
 //set up app 
 const app = express();
 
 // Connecting to (MongoDB NoSQL)
-mongoose.connect('mongodb://localhost:4000/people');
-mongoose.connect('mongodb+srv://cp-waters@hotmail.co.uk:20nialL05!@cluster0.mongodb.net/people');
+mongoose.connect('mongodb://cp-waters:nialL1@ds111430.mlab.com:11430/people');
 
 mongoose.connection.once('open', function(){        
     console.log('Connected to the database...');                                      
@@ -35,7 +31,7 @@ app.use(bodyParser.json());
 //peopleController(app);
 
 //listen to port
-app.listen(process.env.PORT || 4000, function(){
+app.listen(process.env.port || 4000, function(){
     console.log('Server is live on port 4000..')
 });
 
