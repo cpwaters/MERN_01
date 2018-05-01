@@ -3,13 +3,15 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Person = require('./models/data');
 //const routes = require('./controllers/peopleController');
+var MongoClient = require('mongodb').MongoClient;
 
 
 //set up app 
 const app = express();
 
 // Connecting to (MongoDB NoSQL)
-mongoose.connect('mongodb://localhost/people');
+mongoose.connect('mongodb://localhost:4000/people');
+mongoose.connect('mongodb+srv://cp-waters@hotmail.co.uk:20nialL05!@cluster0.mongodb.net/people');
 
 mongoose.connection.once('open', function(){        
     console.log('Connected to the database...');                                      
