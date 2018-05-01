@@ -31,9 +31,7 @@ app.use(bodyParser.json());
 //peopleController(app);
 
 //listen to port
-app.listen(process.env.port || 4000, function(){
-    console.log('Server is live on port 4000..')
-});
+app.listen(process.env.PORT || PORT);
 
 var urlencodedParser = bodyParser.urlencoded({extended: false});
 
